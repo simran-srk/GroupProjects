@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        food_name = [
+            {
+                food: "rava idly",
+                foodRecipe: { step1: "Making Rava Dough", step2: "Making Rava Idly" }, price: 10
+            },
+            {
+                food: "podi idly",
+                foodRecipe: { step1: "Making Normal Idly", step2: "Adding Idayam Ginggely oil and podi in idly" }, price: 20
+            },
+            {
+                food: "stuffed idly",
+                foodRecipe: { step1: "Making stuffed dough", step2: "Making stuffed idly" }, price: 25
+            }
+        ]
+
+        put_chutney = [
+            {
+                chutney: "puthina chutney",
+                foodRecipe: { step1: "Grinding mint with chillies and salt", step2: "Adding oil in pan and cooking chutney" }
+            },
+            {
+                chutney: "coconut chutney",
+                foodRecipe: { step1: "Grinding coconut with chillies and salt", step2: "Adding oil in pan and cooking chutney" }
+            }
+        ]
+
+        const promisecycleOne = (firstQuestion) => {
+            promiseOneStore = new Promise((resolve, reject) => {
+                if (firstQuestion.toLowerCase() === 'yes') {
+                    alert('Sorry,For inconvience Currently Ac room is At Cleaning process\n');
+                    secondQuestion = String(prompt('Will You Wait For Some minutes? \n (yes/no)'))
+                    if (secondQuestion.toLowerCase() === 'yes') {
+                        setTimeout(() => {
+                            document.write('Thanks For Your Patience Sir/Madam \n, Now room is cleaned you can go :) \n');
+                            resolve('resolved');
+                        }, 4000);
+                    } else if (secondQuestion.toLowerCase() === 'no') {
+                        setTimeout(() => {
+                            reject(alert('Okay sir,Normal rooms At 1st floor'))
+                        }, 2000);
+                    } else {
+                        alert('check your input :( ')
+                    }
+
+                }
+                else if (firstQuestion.toLowerCase() === 'no') {
+                    setTimeout(() => {
+
+                        reject(alert('Okay sir,Normal rooms At 1st floor :) '))
+                    }, 2000);
+                } else {
+                    alert('check your input :( ')
+                }
+            });
+            return promiseOneStore
+        }
+
+        async function asyncFunctionOne() {
+            document.write(('---Welcome To Idly Stall :)---').toUpperCase());
+            alert(('---Welcome To Idly Stall :)---\n').toUpperCase());
+            //prompt
+            acOrNonAc = String(prompt('Do you want Ac Rooms ? \n (yes/no)'))
+            await promisecycleOne(acOrNonAc)
+                .then(function () {
+                    setTimeout(() => {
+                        document.write(menuCardFunction(food_name))
+                    }, 2000);
+
+                })
+                .catch(function () {
+                    setTimeout(() => {
+                        document.write(menuCardFunction(food_name));
+                    }, 2000);
+
+                })
+        }
+        asyncFunctionOne();
+
+        function menuCardFunction(fooditemlist) {
+            document.write('---Melvin Idly Shop---')
+            menuCarD = []
+            menuCarD.push('-------------')
+            menuCarD.push('--MENU CARD--');
+            menuCarD.push('-------------')
+            for (menuCard = 0; menuCard < fooditemlist.length; menuCard++) {
+                menuCarD.push(('DISH-' + (Number(menuCard) + Number(1)) + ':- ' + (fooditemlist[menuCard].food).toUpperCase()));
+            }
+            setTimeout(() => {
+                document.write(chutneyMenuCard(put_chutney));
+            }, 2000)
+            return menuCarD
+        }
+
+        function chutneyMenuCard(chutneyDetail) {
+            chutneyList = []
+            chutneyList.push('-----------------')
+            chutneyList.push('--Chutney Types--');
+            chutneyList.push('-----------------')
+            for (chutneylist = 0; chutneylist < chutneyDetail.length; chutneylist++) {
+                chutneyList.push(('Chutney Type' + (Number(chutneylist) + Number(1)) + ':- ' + (chutneyDetail[chutneylist].chutney).toUpperCase()));
+            }
+            setTimeout(() => {
+                foodNeed = String(prompt(menuCarD + '\nWhich Type Idly do you Want?'))
+                foodDetails(foodNeed)
+            }, 1000);
+            return chutneyList
+        }
+
+        //function for Idly input 
+        //foodNeed = "podi idly"
+        function foodDetails(foodEnteredByUser) {
+            setTimeout(() => {
+                idlyCount = String(prompt('How Many Idly You Want?'))
+                noOfIdly(idlyCount)
+            }, 1000);
+            return foodEnteredByUser
+        }
+
+        //idlyCount = 6
+        //function for idly Counts
+        function noOfIdly(CountOfIdly) {
+            setTimeout(() => {
+                chutneyNeed = String(prompt('\n' + chutneyList + '\n' + 'Which Chutney do you Want?' + '\n'))
+                chutneyDetails(chutneyNeed)
+            }, 1000);
+
+            return CountOfIdly
+        }
+
+        //chutneyNeed = 'puthina chutney'
+        //Function for chutney Input 
+        function chutneyDetails(chutneyEnteredByUser) {
+            setTimeout(() => {
+                (priceOfFood(idlyCount, foodNeed))
+            }, 1000);
+
+            return chutneyEnteredByUser
+        }
+
+        //Function For Pricing
+        priceOfYourFood = []
+        function priceOfFood(CountOfIdly, foodType) {
+            for (toFindPrice = 0; toFindPrice < food_name.length; toFindPrice++) {
+                if ((foodType).toLowerCase() == food_name[toFindPrice].food) {
+                    priceOfYourFood.push(CountOfIdly * food_name[toFindPrice].price)
+                }
+            }
+            setTimeout(() => {
+                (returningTheRecipeOfCurrentFoodOrderd(foodNeed))
+            }, 1000)
+
+            return priceOfYourFood
+        }
+
+        function returningTheRecipeOfCurrentFoodOrderd(foodOrdered) {
+            document.write('-----------------------------------');
+            document.write("MAKING OF IDLY STARTED");
+            document.write('-----------------------------------');
+            idlyRecepieSteps = []
+            for (eachIdlyType = 0; eachIdlyType < food_name.length; eachIdlyType++) {
+                idlyRecepieSteps[eachIdlyType] = []
+                if (((foodOrdered).toLowerCase()) === food_name[eachIdlyType].food) {
+                    C = ('STEP-1:-' + food_name[eachIdlyType].foodRecipe.step1);
+                    D = ('STEP-2:-' + food_name[eachIdlyType].foodRecipe.step2);
+                }
+            }
+            setTimeout(() => {
+                document.write(C)
+                setTimeout(() => {
+                    document.write(D)
+                    returningTheRecipeOfCurrentChutneyOrderd(chutneyNeed)
+                }, 1000);
+            }, 2000);
+
+        }
+
+        function returningTheRecipeOfCurrentChutneyOrderd(chutneyOrdered) {
+            document.write('-----------------------------------');
+            document.write("MAKING OF CHUTNEY STARTED");
+            document.write('-----------------------------------');
+            chutneyRecepieSteps = []
+            for (eachChutneyType = 0; eachChutneyType < put_chutney.length; eachChutneyType++) {
+                chutneyRecepieSteps[eachChutneyType] = []
+                if ((chutneyOrdered).toLowerCase() == put_chutney[eachChutneyType].chutney) {
+                    A = ('STEP-1:-' + (put_chutney[eachChutneyType].foodRecipe.step1).toUpperCase())
+                    B = ('STEP-2:-' + (put_chutney[eachChutneyType].foodRecipe.step2).toUpperCase())
+                }
+            };
+            // document.write(chutneyRecepieSteps);
+            setTimeout(() => {
+                document.write(A)
+                setTimeout(() => {
+                    document.write(B)
+                    loopFunctions = String(prompt('Do you more Idly?' + '\n' + '(yes/no)'))
+                    if (loopFunctions.toLowerCase() == 'yes') {
+                        returningBack(loopFunctions)
+                    } else if (loopFunctions.toLowerCase() == 'no') {
+                        document.write(orderDetails(foodNeed, chutneyNeed, idlyCount))
+                    }
+                }, 2000);
+            }, 2000);
+        }
+
+        function returningBack(answer) {
+            if (answer.toLowerCase() == 'yes') {
+                orderDetails(foodNeed, chutneyNeed, idlyCount)
+                document.write(menuCardFunction(food_name))
+            }
+        }
+
+        function orderDetails(food, chutney, foodcount) {
+            bill = []
+            bill.push(  'FOOD:'+ food.toUpperCase())
+            bill.push(  'CHUTNEY:'+ chutney.toUpperCase())
+            bill.push( 'COUNT:'+ foodcount)
+            bill.push(('TOTAL PRICE :- ' + (priceOfYourFood.reduce((a, b) => a + b))))
+            return bill
+        }
+    </script>
+</body>
+
+</html>
