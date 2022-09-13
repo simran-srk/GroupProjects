@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        food_name = [
+            {
+                food: "rava idly",
+                foodRecipe: { step1: "Making Rava Dough", step2: "Making Rava Idly" }, price: 10
+            },
+            {
+                food: "podi idly",
+                foodRecipe: { step1: "Making Normal Idly", step2: "Adding Idayam Ginggely oil and podi in idly" }, price: 20
+            },
+            {
+                food: "stuffed idly",
+                foodRecipe: { step1: "Making stuffed dough", step2: "Making stuffed idly" }, price: 25
+            }
+        ]
+
+        put_chutney = [
+            {
+                chutney: "puthina chutney",
+                foodRecipe: { step1: "Grinding mint with chillies and salt", step2: "Adding oil in pan and cooking chutney" }
+            },
+            {
+                chutney: "coconut chutney",
+                foodRecipe: { step1: "Grinding coconut with chillies and salt", step2: "Adding oil in pan and cooking chutney" }
+            }
+        ]
+
+        function foodDetails(foodEnteredByUser) {
+            return foodEnteredByUser
+        }
+
+        function noOfIdly(CountOfIdly) {
+            return CountOfIdly
+        }
+
+        function chutneyDetails(chutneyEnteredByUser) {
+            return chutneyEnteredByUser
+        }
+
+        function priceOfFood(CountOfIdly, foodType) {
+            for (toFindPrice = 0; toFindPrice < foodType.length; toFindPrice++) {
+                if (foodDetails(foodNeed).toLowerCase() == foodType[toFindPrice].food) {
+                    priceOfYourFood = (CountOfIdly * (foodType[toFindPrice].price))
+                }
+            }
+            return priceOfYourFood
+        }
+
+
+        function orderDetails(food, chutney, foodcount, prices) {
+            bill = []
+            const orderDetail = {
+                FOOD: food.toUpperCase(),
+                CHUTNEY: chutney.toUpperCase(),
+                COUNT: foodcount,
+                PRICE: prices
+            }
+            bill.push('FOOD :' + food.toUpperCase())
+            bill.push('CHUTNEY :' + chutney.toUpperCase())
+            bill.push('COUNT :' + foodcount)
+            bill.push("PRICE :" + priceOfFood(foodcount, food))
+            return bill
+        }
+    
+        //-----------------------------------------------------------------
+
+        function promise1() {
+            let shopStatus = true
+            return new Promise(function (resolve, reject) {
+                if (shopStatus) {
+                    resolve(console.log("Shop is Open"))
+
+                } else {
+                    reject(console.log("Sorry, Shop is Closed"))
+                }
+            })
+        }
+
+        promise1()
+            .then(function () {
+                setTimeout(() => {
+
+                    document.write('<br>', '----Welcome To  Idly Shop :)----')
+                    document.write('<br>', '--------------------------------------')
+                    document.write('<br>', '--MENU CARD--');
+                    document.write('<br>', '...IDLYS!!...')
+                    for (menuCard = 0; menuCard < food_name.length; menuCard++) {
+                        document.write('<br>', 'DISH-' + (Number(menuCard) + Number(1)) + ':-', (food_name[menuCard].food).toUpperCase());
+                    }
+                    document.write('<br>', '...CHUTNEYS!!...')
+                    for (menuCard = 0; menuCard < put_chutney.length; menuCard++) {
+                        document.write('<br>', 'DISH-' + (Number(menuCard) + Number(1)) + ':-', (put_chutney[menuCard].chutney).toUpperCase());
+                    }
+                },)
+            })
+            .then(function () {
+                setTimeout(() => {
+                    foodNeed = String(prompt("Enter type of idly "))
+                    CountOfIdly = Number(prompt("Enter the number of Idlys"))
+                    chutneyNeed = String(prompt("Enter type of chutney "))
+                }, 1000)
+            })
+            .then(function () {
+                setTimeout(() => {
+
+                    document.write('<br>', '-----------------------------------');
+                    document.write('<br>', 'THANKS FOR ORDERING');
+                    document.write('<br>', 'YOUR ORDER HAS BEEN PLACED..:)');
+                    document.write('<br>', 'YOUR ORDER DETAILS:-');
+                    orderDetails(foodDetails(foodNeed), chutneyDetails(chutneyNeed), noOfIdly(CountOfIdly), priceOfFood(CountOfIdly, food_name))
+                    for (i of bill)
+                        document.write('<br>', i);
+                }, 1500)
+            })
+            .then(function () {
+                setTimeout(() => {
+                    document.write('<br>', '-----------------------------------');
+                    document.write('<br>', "MAKING OF IDLY STARTED");
+                    document.write('<br>', '-----------------------------------');
+                    function selectingAFood(foodType) {
+                        for (eachFoodType = 0; eachFoodType < foodType.length; eachFoodType++) {
+                            if (foodDetails(foodNeed).toLowerCase() == foodType[eachFoodType].food) {
+                                document.write('<br>', 'Your Food Will Delivered In Few Minutes');
+                                document.write('<br>', 'STEP-1:-', (foodType[eachFoodType].foodRecipe.step1).toUpperCase())
+                                document.write('<br>', 'STEP-2:-', (foodType[eachFoodType].foodRecipe.step2).toUpperCase())
+                            }
+                        }
+                    }
+                    selectingAFood(food_name)
+                }, 2000)
+            })
+
+            .then(function () {
+                setTimeout(() => {
+                    document.write('<br>', '-----------------------------------');
+                    document.write('<br>', "MAKING OF CHUTNEY STARTED");
+                    document.write('<br>', '-----------------------------------');
+                    function selectingAChutney(foodType) {
+                        for (eachChutneyType = 0; eachChutneyType < foodType.length; eachChutneyType++) {
+                            if (chutneyDetails(chutneyNeed).toLowerCase() == foodType[eachChutneyType].chutney) {
+                                document.write('<br>', 'Your Food Will Delivered In Few Minutes');
+                                document.write('<br>', 'STEP-1:-', (foodType[eachChutneyType].foodRecipe.step1).toUpperCase())
+                                document.write('<br>', 'STEP-2:-', (foodType[eachChutneyType].foodRecipe.step2).toUpperCase())
+                            }
+                        };
+                    }
+
+                    selectingAChutney(put_chutney)
+                }, 3000)
+            })
+
+
+            .then(function () {
+                setTimeout(() => {
+                    document.write('<br>')
+                    document.write('-------------------------------');
+                    document.write('<br>')
+                    document.write("Your Order Is Delivered");
+                    document.write('<br>')
+                    document.write('-------------------------------');
+                }, 4000)
+            })
+
+            .catch(function () {
+                setTimeout(() => {
+                    document.write("Please Comeback Later :(", '\n');
+                }, 1000)
+            })
+
+    </script>
+</body>
+
+</html>
